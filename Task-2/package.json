@@ -1,0 +1,13 @@
+{
+  "name": "multi-site-react-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generates multiple minimal React apps from website.csv into build/",
+  "scripts": {
+    "start": "node scripts/generate.js",
+    "dev": "node scripts/generate.js && node scripts/serve.js"
+  },
+  "license": "MIT"
+}
+
+
