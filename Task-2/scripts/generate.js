@@ -7,10 +7,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const CSV_PATH = path.join(ROOT_DIR, 'website.csv');
 const BUILD_DIR = path.join(ROOT_DIR, 'build');
 
-/**
- * Minimal CSV parser that supports quoted fields with commas and newlines.
- * Returns an array of row objects keyed by header.
- */
+
 function parseCsv(content) {
   const rows = [];
   const headers = [];
@@ -205,7 +202,7 @@ export default function App() {
       </section>
       <section className="contact">
         <div className="card">
-          <Contact phone={siteData.phone} address={siteData.address} />
+          <Contact />
         </div>
       </section>
     </div>
@@ -215,25 +212,25 @@ export default function App() {
 }
 
 function generateHeadingComponent() {
+  const words = ['Quick', 'Fast', 'Speedy'];
+  const chosen = words[Math.floor(Math.random() * words.length)];
+  
   return `import React from 'react'
 
-const words = ['Quick', 'Fast', 'Speedy']
-const chosen = words[Math.floor(Math.random() * words.length)]
-
 export default function Heading() {
-  return <h1>{chosen} delivery service in dhaka.</h1>
+  return <h1>${chosen} delivery service in dhaka.</h1>
 }
 `;
 }
 
-function generateContactComponent() {
+function generateContactComponent(phone, address) {
   return `import React from 'react'
 
-export default function Contact({ phone, address }) {
+export default function Contact() {
   return (
     <>
-      <p>Phone: {phone}</p>
-      <p>Address: {address}</p>
+      <p>Phone: ${phone}</p>
+      <p>Address: ${address}</p>
     </>
   )
 }
@@ -283,7 +280,7 @@ function main() {
     writeFile(path.join(srcDir, 'main.jsx'), generateMainJsx());
     writeFile(path.join(srcDir, 'App.jsx'), generateAppJsx());
     writeFile(path.join(srcDir, 'components', 'Heading.jsx'), generateHeadingComponent());
-    writeFile(path.join(srcDir, 'components', 'Contact.jsx'), generateContactComponent());
+    writeFile(path.join(srcDir, 'components', 'Contact.jsx'), generateContactComponent(r.phone || '', r.address || ''));
     writeFile(path.join(srcDir, 'siteData.json'), JSON.stringify({
       title: r.title || 'Website',
       description: r.description || '',
